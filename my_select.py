@@ -34,10 +34,6 @@ def select_02():
     LIMIT 1;
     """
 
-    # result = session.query(Student.id, Student.fullname, func.round(func.avg(Grade.grade), 2).label('average_grade')) \
-    #         .select_from(Grade).join(Student).filter(Grade.subjects_id == 1).group_by(Student.id).order_by(
-    #     desc('average_grade')).limit(1).all()
-    # return result
     result = session.query(Student.id, Student.fullname, func.round(func.avg(Grade.grade), 2).label('average_grade')) \
         .select_from(Grade).join(Student).filter(Grade.subjects_id == 1).group_by(Student.id).order_by(
         desc('average_grade')).limit(1).all()
@@ -86,7 +82,7 @@ def select_05():
     result = session.query(Subject.id.label('subject_id'), Subject.name.label('subject_name'),
                            Teacher.fullname.label('teacher_name')) \
              .join(Teacher, Subject.teacher_id == Teacher.id) \
-             .filter(Teacher.fullname == 'Kelly Prince').all()
+             .filter(Teacher.id == 4).all()
     return result
 
 def select_06():
@@ -163,7 +159,7 @@ def select_09():
     result = session.query(Student.id.label('student_id'), Student.fullname.label('student_name'), Subject.name.label('subject_name')) \
              .join(Grade, Student.id == Grade.student_id) \
              .join(Subject, Grade.subjects_id == Subject.id) \
-             .filter(Student.fullname == 'Kathy Ayala').all()
+             .filter(Student.id == 3).all()
     return result
 
 
