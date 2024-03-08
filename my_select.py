@@ -166,6 +166,7 @@ def select_09():
              .filter(Student.fullname == 'Kathy Ayala').all()
     return result
 
+
 def select_10():
     """
     SELECT
@@ -177,16 +178,17 @@ def select_10():
     JOIN subjects sub ON g.subject_id = sub.id
     JOIN teachers t ON sub.teacher_id = t.id
     WHERE
-        s.fullname = 'Jacob Rodriguez'
-        AND t.fullname = 'Kelly Prince';
+        s.id = 1
+        AND t.id = 2;
     """
 
     result = session.query(Student.fullname.label('student_name'), Teacher.fullname.label('teacher_name'), Subject.name.label('subject_name')) \
              .join(Grade, Student.id == Grade.student_id) \
              .join(Subject, Grade.subjects_id == Subject.id) \
              .join(Teacher, Subject.teacher_id == Teacher.id) \
-             .filter(Student.fullname == 'Jacob Rodriguez') \
-             .filter(Teacher.fullname == 'Kelly Prince').all()
+             .filter(Student.id == 1) \
+             .filter(Teacher.id == 2) \
+             .group_by(Student.fullname, Teacher.fullname, Subject.name).all()
     return result
 
 
